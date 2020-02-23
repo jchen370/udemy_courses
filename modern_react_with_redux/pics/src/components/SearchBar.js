@@ -1,8 +1,8 @@
 import React from 'react';
 
 class SearchBar extends React.Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.onFormSubmit = this.onFormSubmit.bind(this);
     }
 
