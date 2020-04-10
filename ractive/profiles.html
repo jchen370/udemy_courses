@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>User Profile</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <style>
+            img{
+                width:100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div id="app"></div>
+        </div>
+        
+
+        <script id="template" type="text/ractive">
+            {{#user}}
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
+                    <img src="{{avatar}}">
+                </div>
+                <div class="col-md-8 col-sm-8">
+                    <h1>{{name}}</h1>
+                    {{#user.shares}}
+                    <span class="badge badge-success">{{posts}} Posts</span>
+                    <span class="badge badge-primary">{{posts}} Photos</span>
+                    <span class="badge badge-danger">{{posts}} Videos</span>
+                    {{/user.shares}}
+                    <br><br>
+                    <ul class="list-group">
+                        <li class="list-group-item">Age: {{age}}</li>
+                        {{#user.location}}
+                        <li class="list-group-item">Location: {{city}}, {{state}}</li>
+                        {{/user.location}}
+                    </ul>
+                    <br>
+                    <h3>Bio</h3>
+                    <p>{{bio}}</p>
+
+                </div>
+            </div>
+            {{/user}}
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/ractive"></script>
+
+        <script>
+            
+
+            var ractive = new Ractive({
+                el:"#app",
+                template:"#template",
+                data:{
+                    user:{
+                        name: "John Doe",
+                        age: 30,
+                        bio: "Something Something Something Something.",
+                        avatar: "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png",
+                        location: {
+                            city:"Flushing",
+                            state: "New York"
+                        },
+                        shares:{
+                            posts:230,
+                            photos: 90,
+                            videos: 10
+                        }
+                    },
+                    
+                }
+            });
+        </script>
+    </body>
+</html>
