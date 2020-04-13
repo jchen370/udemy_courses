@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ractive Sections & Conditionals</title>
+        <meta charset="utf-8"/>
+
+        <style>
+            .red{
+                color:red;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app"></div>
+
+        <script id="template" type="text/ractive">
+            {{#user}}
+                User is set to true.
+            {{/user}}
+
+            {{^user}}
+            User is set to false.
+            {{/user}}
+
+            <br><br>
+            User List
+            <ul>
+            {{#users}} 
+                <li>{{name}}</li>
+            {{/users}}
+            </ul>
+
+            <h1 class="{{#user}}red{{/user}}">Red</h1>
+
+            {{#if loggedIn}}
+            <p>You are logged in.</p>
+            {{else}}
+            <p>Try again.</p>
+            {{/if}}
+        
+
+            {{#unless loggedIn}}
+                <p>You are NOT logged in. Please register.</p>
+            {{/unless}}
+
+            {{! This is a comment!!}}
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/ractive"></script>
+
+        <script>
+            var ractive = new Ractive({
+                el:"#app",
+                template:"#template",
+                data:{
+                    user:true,
+                    users:[
+                        {name: "Alice"},
+                        {name: "Billy"},
+                        {name: "Carol"}
+                    ],
+                    loggedIn: false
+                }
+            });
+        </script>
+
+    </body>
+</html>

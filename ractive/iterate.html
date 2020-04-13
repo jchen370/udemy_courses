@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Iterating with Each</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div id="app"></div>
+        </div>
+        
+
+        <script id="template" type="text/ractive">
+            <table>
+                <tr>
+                    <th>Index</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>City</th>
+                </tr>
+                {{#each users:i}}
+                    <tr>
+                        <td>{{i}}</td>
+                        <!-- <td>{{@index}}</td> -->
+                        <!-- <td>{{@key}}</td> -->
+                        <!-- <td>{{@keypath}}</td> -->
+                        
+                        <td>{{name}}</td>
+                        <td>{{email}}</td>
+                        <td>{{city}}</td>
+                    </tr>
+                {{/each}}
+
+            </table>
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/ractive"></script>
+
+        <script>
+            var users=[
+                {
+                    name: "John Doe",
+                    email:"john@gmail.com",
+                    city:"City A"
+                },
+                {
+                    name: "Jane Doe",
+                    email:"jane@gmail.com",
+                    city:"City B"
+                },
+                {
+                    name: "Billy",
+                    email:"billy@gmail.com",
+                    city:"City C"
+                },
+                {
+                    name: "Bob",
+                    email:"bob@gmail.com",
+                    city:"City D"
+                }
+
+            ];
+
+            var newUser = {
+                    name: "Joe",
+                    email:"joe@gmail.com",
+                    city:"City E"
+            };
+
+            // ractive.push("users",newUser);
+
+            users.push(newUser);
+
+
+            var ractive = new Ractive({
+                el:"#app",
+                template:"#template",
+                data:{
+                    users: users
+                    
+                }
+            });
+
+            ractive.set("users[0].name", "Jess");
+            ractive.set("users.1.name", "Nick");
+
+            // ractive.splice("users", 3, 1);
+        </script>
+    </body>
+</html>
