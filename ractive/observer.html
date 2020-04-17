@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Observer</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div id="app"></div>
+        </div>
+        
+
+        <script id="template" type="text/ractive">
+            {{cart.total}}
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/ractive"></script>
+
+
+        <script>
+        var ractive = new Ractive({
+            el:"#app",
+            template: "#template",
+            partials:{
+
+            },
+            data:{
+                cart:{
+                    total:10
+                },
+                users:[
+                    {username: "ted", isAdmin:true},
+                    {username: "shawn"},
+                    {username: "bill", email:"abc@gmail.com"}
+                ]
+            }
+        });
+
+       
+        // var observer = ractive.observe("cart.total", function(newValue, oldValue, keypath){
+        //     console.log(keypath+" changed to "+newValue);
+        // });
+
+        // ractive.set("cart.total", 20);
+        // observer.cancel();
+
+        // ractive.set("cart.total", 30);
+
+
+        // var users = ractive.get("users");
+        // users.push({username:"joe"});
+        
+        var observer = ractive.observe("users.*", function(newValue, oldValue, keypath){
+            console.log(keypath+" changed to "+newValue.username);
+
+            if(newValue.isAdmin){
+                console.log(newValue.username + " is now an admin");
+
+            }
+        });
+
+        // ractive.set("users.3", {username: "molly"});
+        // ractive.set("users.3.isAdmin", true);
+
+
+        // ractive.observe("users.*.username", updateServer);
+        // ractive.observe("cart.total", updateServer);
+
+        ractive.observe("users.*.username cart.total", updateServer)
+
+        function updateServer(newValue){
+            console.log(newValue)
+        }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Events</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div id="app"></div>
+        </div>
+        
+
+        <script id="template" type="text/ractive">
+            <button on-click="['sayHello','Jess']">Say Hello</button>
+            <button on-click="['sayGoodBye']">Say Goodbye</button>
+            <button on-click="['sayNothing']">Turning Off</button>
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/ractive"></script>
+
+        <script>
+        var ractive = new Ractive({
+            el:"#app",
+            template: "#template",
+            partials:{
+
+            },
+            data:{
+
+            }
+        });
+
+        // Method 1
+        // ractive.on("sayHello", function(e, name){
+        //     alert("Hi "+name);
+        // });
+
+
+        // Method 2
+        // ractive.on({
+        //     sayHello:function(e,name){
+        //         alert("hello "+name);
+        //     },
+        //     sayGoodBye:function(e){
+        //         alert("Bye!");
+        //     },
+        //     sayNothing:function(e){
+        //         alert("Turning Off Hello Button");
+        //         ractive.off("sayHello");
+        //     }
+        // });
+
+
+
+        // Method 3
+        listener = ractive.on({
+            sayHello:function(e,name){
+                alert("hello "+name);
+            },
+            sayGoodBye:function(e){
+                alert("Bye!");
+            },
+            sayNothing:function(e){
+                alert("Canceling");
+                listener.cancel();
+            }
+        });
+
+
+
+
+        </script>
+    </body>
+</html>

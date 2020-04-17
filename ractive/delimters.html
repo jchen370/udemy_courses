@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Template</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div id="app"></div>
+        </div>
+        
+
+        <script id="template" type="text/ractive">
+            <h1>{{greeting}} {{name}}</h1>
+            {{{content}}}
+            {{! This is a comment}}
+            <br>
+
+            [[greeting]] - This works with new delimiters.  \[[ ]]
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/ractive"></script>
+
+        <script>
+        var ractive = new Ractive({
+            el:"#app",
+            template: "#template",
+            partials:{
+
+            },
+            data:{
+                greeting: "Hello",
+                name:"World",
+                content: "<p>Here is some <strong>content</strong></p>"
+            },
+            delimiters: ["[[", "]]"],
+            tripleDelimiters: ["[[[","]]]"]
+        });
+        </script>
+    </body>
+</html>

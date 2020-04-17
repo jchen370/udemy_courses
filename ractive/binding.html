@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Binding</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div id="app"></div>
+        </div>
+        
+
+        <script id="template" type="text/ractive">
+            <form>
+                <h1>Text Input</h1>
+                <label> Name:
+                    <input type="text" value={{name}}>
+                </label>
+                <p>Hello {{name}}</p>
+
+                <h1>Checkbox</h1>
+                <input type="checkbox" checked={{checked}}>
+                {{#if checked}}
+                    Checked!
+                {{else}}
+                    Not checked!
+                {{/if}}
+
+                <h1>Radio Buttons</h1>
+                <label><input type="radio" name="{{color}}" value="red" checked>Red</label>
+                <label><input type="radio" name="{{color}}" value="blue">Blue</label>
+                <label><input type="radio" name="{{color}}" value="green">Green</label>
+
+                <p>The selected color is...<span style="color:{{color}};">{{color}}</span></p>
+           
+                <h1>Select</h1>
+                <select value={{color}}>
+                    {{#each colors}}
+                    <option>{{this}}</option>
+                    {{/each}}
+                </select>
+
+                <h1>Multi-Select</h1>
+                <select value={{selectedColors}} multiple>
+                    {{#each colors}}
+                    <option>{{this}}</option>
+                    {{/each}}
+                </select>
+
+                {{#if selectedColors.length}}
+                    <p>Selected Colors are...</p>
+                    <ul>
+                        {{#each selectedColors}}
+                        <li style="background-color:{{this}};">{{this}}</li>
+                        {{/each}}
+                    </ul>
+
+                    {{else}}
+                        <p>No colors selected.</p>
+                {{/if}}
+            </form>
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/ractive"></script>
+
+
+        <script>
+        var colors = ["red", "green", "blue"];
+        var ractive = new Ractive({
+            el:"#app",
+            template: "#template",
+            partials:{
+
+            },
+            data:{
+                name: "John Doe",
+                colors: colors,
+                color: colors[0]
+            }
+        });
+        </script>
+    </body>
+</html>

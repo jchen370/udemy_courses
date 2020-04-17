@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Component</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div id="app"></div>
+        </div>
+        
+
+        <script id="template" type="text/ractive">
+            <subscriber message="Thank you for subscribing"/>
+        </script>
+
+        <script id="subscriber" type="text/ractive">
+            <h3>Subscribe to Us</h3>
+            {{#if submitted}}
+                {{message}}
+            {{/if}}
+            <form on-submit="subscribe">
+                <input type="text" placeholder="Enter Email">
+                <input type="submit" value="Submit">    
+            </form>
+
+
+            <row>
+                <col-md-4>
+                    Test
+                </col-md-4>
+                <col-md-4>
+                    Test
+                </col-md-4>
+                <col-md-4>
+                    Test
+                </col-md-4>
+            </row>
+
+            <btn type="success">Success</btn>
+
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/ractive"></script>
+        <script src="http://dagnelies.github.io/ractive-bootstrap/bin/ractive-bootstrap.min.js"></script>
+
+        <script>
+            var Subscriber = Ractive.extend({
+                template: "#subscriber",
+                oninit:function(){
+                    this.on("subscribe", function(){
+                        console.log("User subscribed");
+                        this.set("submitted", true);
+                        return false; //prevent form from actually being submitted
+                    })
+                },
+                data:{
+                    message:"",
+                    submmited: false
+                }
+            });
+            var ractive = new Ractive({
+                el:"#app",
+                template: "#template",
+                partials:{
+
+                },
+                data:{
+
+                },
+                components:{subscriber: Subscriber}
+            });
+        </script>
+    </body>
+</html>

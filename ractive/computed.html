@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Template</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div id="app"></div>
+        </div>
+        
+
+        <script id="template" type="text/ractive">
+            {{area}}
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/ractive"></script>
+
+
+        <script>
+        var ractive = new Ractive({
+            el:"#app",
+            template: "#template",
+            partials:{
+
+            },
+            data:{
+                width: 150,
+                height: 150,
+                city: "Flushing",
+                state: "NY"
+                
+            },
+            computed:{
+                area: "width * height",
+                location:{
+                    get: "city+', '+state",
+                    set: function(location){
+                        var parts = location.split(" ");
+
+                        this.set({
+                            city: parts[0] || "",
+                            state: parts[1 || ""]
+                        });
+                    }
+                }
+            }
+        });
+
+        ractive.observe("area",function(){
+            console.log("Area changed!");
+            console.log(this.get("area"));
+
+        });
+        ractive.set("location", "Miami FL");
+        console.log(ractive.get("location"));
+        </script>
+    </body>
+</html>

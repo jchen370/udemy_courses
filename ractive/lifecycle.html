@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Template</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div id="app"></div>
+        </div>
+        
+
+        <script id="template" type="text/ractive">
+            {{foo}}
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/ractive"></script>
+
+
+        <script>
+            var MyRactive = Ractive.extend({
+                template: "#template",
+                oninit: function(){
+                    console.log("oninit has been run...");
+                },
+                onrender:function(){
+                    console.log("onrender has been run...");
+                }
+            });
+
+            var myRactive = new MyRactive({
+                el: "#app",
+                data:{
+                    foo: "bar"
+                }
+            });
+
+        </script>
+    </body>
+</html>

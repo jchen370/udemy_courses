@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Animate</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <style>
+            .box{
+                background-color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div id="app"></div>
+        </div>
+        
+
+        <script id="template" type="text/ractive">
+            <div class="box" style="
+                width:{{width}}px; 
+                height:{{height}}px; 
+                opacity:{{opacity}}">
+            </div>
+
+            <ul>
+                <li> Width: {{width}}</li>
+                <li> Height: {{height}}</li>
+                <li> Opacity: {{opacity}}</li>
+            </ul>
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/ractive"></script>
+
+
+        <script>
+        var ractive = new Ractive({
+            el:"#app",
+            template: "#template",
+            partials:{
+
+            },
+            data:{
+                width: 100,
+                height: 100,
+                opacity: 1
+            }
+        });
+
+        // ractive.animate({
+        //     width: 500,
+        //     height: 500,
+        //     opacity: 0.2
+        // },{
+        //     easing: "easeOut",
+        //     duration: 3000
+        // });
+
+        ractive.animate('width', 500, {
+            easing: "easeOut",
+            duration: 3000,
+            complete: function(){
+                console.log("Width done");
+            }
+        });
+        ractive.animate('height', 500, {
+            easing: "easeOut",
+            duration: 3000,
+            step: function(t, value){
+                console.log(value);
+            }
+        });
+        ractive.animate('opacity', 0.2, {
+            easing: "easeOut",
+            duration: 3000
+        });
+        </script>
+    </body>
+</html>

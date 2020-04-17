@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Iterating with Each</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div id="app"></div>
+        </div>
+        
+
+        <script id="template" type="text/ractive">
+            {{>partial1}}
+            {{>partialFunction}}
+            {{>partial2}}
+            {{>partial3 {name:"John Doe"}}}
+
+            {{#partial partial3}}
+                <p>This is partial 3 - {{name}}!!!</p>
+            {{/partial}}
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/ractive"></script>
+
+        <script id="partial2" type="text/ractive">
+            <p>This is partial 2!!</p>
+        </script>
+
+        <script>
+        var ractive = new Ractive({
+            el:"#app",
+            template: "#template",
+            partials:{
+                partial1:"<p>This is a partial!!</p>",
+                partialFunction: function(){
+                    return "<p>This is a partial function!!</p>";
+                }
+            },
+            data:{
+
+            }
+        });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SVG</title>
+        <meta charset="utf-8"/>
+        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
+        <style>
+            svg{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+
+            rect{
+                fill: rgb(200, 0, 0);
+                stroke: rgb(50, 50, 50);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div id="app"></div>
+        </div>
+        
+
+        <script id="template" type="text/ractive">
+                <svg>
+                    <g transform="translate(30,30)">
+                        <rect width={{width}} height={{height}} />
+
+                        <text class="area" x={{width/2}} y={{height/2}}>
+                            {{Math.round(width * height)}} px
+                        </text>
+
+                        <text transform="translate({{width/2}}, -10)">
+                            {{Math.round(width)}} px
+                        </text>
+
+                        <text transform="translate(-10, {{height/2}}), rotate(-90)">
+                            {{Math.round(height)}} px
+                        </text>
+                    </g>
+                </svg>
+
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/ractive"></script>
+
+
+        <script>
+        var ractive = new Ractive({
+            el:"#app",
+            template: "#template",
+            partials:{
+
+            },
+            data:{
+                width:500,
+                height: 500
+            }
+        });
+
+        ractive.animate("width", 1000), {
+            easing: "easeOut",
+            duration: 2000
+        };
+        </script>
+    </body>
+</html>

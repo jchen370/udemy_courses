@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Template</title>
+        <meta charset="utf-8"/>
+        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
+        <style>
+            body{
+                background: #000;
+                font-family: Arial;
+            }
+
+            #app{
+                margin: 40px auto;
+                width: 650px;
+                overflow:hidden;
+            }
+
+            .slideshow{
+                border: 5px solid #fff;
+            }
+
+            .prev, .next{
+                font-size: 40px;
+                margin-top: -300px;
+                color: #fff;
+                background: #333;
+                padding: 0px 15px 10px 15px;
+                cursor: pointer;
+            }
+
+            .next{
+                float:right;
+                padding-right: 10px;
+            }
+
+            .prev{
+                float:left;
+                padding-left:10px;
+            }
+
+            .caption{
+                background: #333;
+                color: #fff;
+                padding: 5px 10px;
+                font-size: 24px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div id="app"></div>
+        </div>
+        
+
+        <script id="template" type="text/ractive">
+            <div class="slideshow">
+                <div class="main">
+                    <div class="main-image" style="background-image:url({{image.src}};width:640px;height:420px">
+                    </div>
+
+                    <div class="caption">
+                        {{image.caption}}
+                    </div>
+
+                    <a class="prev" on-click="['goto', current-1]">
+                        <span>&laquo;</span>
+                    </a>
+
+                    <a class="next" on-click="['goto', current+1]">
+                        <span>&raquo;</span>
+                    </a>
+                </div>
+
+            </div>
+
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/ractive"></script>
+
+
+        <script>
+        var Slideshow = Ractive.extend({
+            template:"#template",
+            goto:function(imageNum){
+                console.log("ImageNum: "+imageNum);
+                var images= this.get("images");
+
+                while(imageNum < 0){
+                    imageNum += images.length;
+                }
+
+                //Max
+                imageNum %= images.length;
+
+                //Update View
+                this.set({
+                    image:images[imageNum],
+                    current: imageNum
+                });
+
+            },
+            oninit:function(options){
+                this.on("goto", function(e, index){
+                    this.goto(index);
+                });
+
+                //Start on First Image
+                this.goto(0);
+            }
+        });
+
+        //Images
+        var images = [
+            {
+                src:"./resources/1.jpeg",
+                caption:"Item One"
+            },
+            {
+                src:"./resources/2.jpeg",
+                caption:"Item Two"
+            },
+            {
+                src:"./resources/3.jpeg",
+                caption:"Item Three"
+            },
+            {
+                src:"./resources/4.jpeg",
+                caption:"Item Four"
+            }
+        ];
+
+
+        var slideshow = new Slideshow({
+            el: "#app",
+            data:{
+                images:images
+            }
+        });
+        </script>
+    </body>
+</html>

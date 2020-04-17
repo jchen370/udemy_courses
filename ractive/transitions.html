@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Transitions</title>
+        <meta charset="utf-8"/>
+        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
+        <style>
+            .btn{
+                background-color: #333;
+                color: #fff;
+                padding: 10px;
+                width: 520px;
+                margin: auto;
+                display:block;
+                border: 0;
+            }
+
+            .myForm{
+                padding: 10px;
+                text-align:center;
+                background-color: #333;
+                color: #fff;
+                border: 0;
+                margin:auto;
+                width: 500px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div id="app"></div>
+        </div>
+        
+
+        <script id="template" type="text/ractive">
+            <!-- <div fade-in>
+                This div will fade into view
+            </div>
+
+            <div fade-in="2000">
+                Fade with Duration
+            </div>
+
+            <div slide-in="2000">
+                Slide
+            </div>
+
+            <div fly-in="{ duration: 2000, delay: 2000}">
+                Fly
+            </div> -->
+            
+
+            <button class="btn" on-click="showForm"><h1>Register</h1></button>
+
+            {{#if showForm}}
+            <div class="myForm" slide-in="{ duration: 500}" slide-out="{ duration: 500}" >
+                <form>
+                    <div>
+                        <label>Username: </label><br>
+                        <input type="text">
+                    </div>
+                    <br>
+                    <div>
+                        <label>Email: </label><br>
+                        <input type="text">
+                    </div>
+                    <br>
+
+                    <div>
+                        <label>Password: </label><br>
+                        <input type="text">
+                    </div>
+                    <br>
+
+                    <button type="submit">Submit</button>
+                    <br>
+
+                </form>
+            
+            </div>
+            {{/if}}
+
+
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/ractive"></script>
+        <script src="https://cdn.jsdelivr.net/npm/ractive-transitions-fade"></script>
+        <script src="https://cdn.jsdelivr.net/npm/ractive-transitions-slide"></script>
+        <script src="https://cdn.jsdelivr.net/npm/ractive-transitions-fly"></script>
+
+        <script>
+        var ractive = new Ractive({
+            el:"#app",
+            template: "#template",
+            partials:{
+
+            },
+            data:{
+                showForm: false
+            }
+        });
+
+        ractive.on("showForm", function(){
+            this.toggle("showForm");
+        });
+        </script>
+    </body>
+</html>
