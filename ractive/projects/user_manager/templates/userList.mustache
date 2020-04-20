@@ -1,8 +1,45 @@
 module.exports = function(){
     return `
-        <form>
+        <form on-submit="addUser">
+            <div>
+                <input type="text" placeholder="Add Name" value="{{name}}">
+            </div>
 
-        <form>
-    
+            <div>
+                <input type="text" placeholder="Add Email" value="{{email}}">
+            </div>
+
+            <div>
+                <input type="text" placeholder="Add City" value="{{city}}">
+            </div>
+
+            <input type="submit" class="button" value="submit">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>City</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each users:i}}
+                    <tr>
+                        <td>{{i}}</td>
+                        <td>{{name}}</td>
+                        <td>{{email}}</td>
+                        <td>{{city}}</td>
+                        <td>
+                            <a class="button" on-click="['editUser', i]">Edit123</a>
+                            <a class="button alert" on-click="['deleteUser', i]">Delete</a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </form>
     `;
 }
